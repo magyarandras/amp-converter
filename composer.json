@@ -1,0 +1,25 @@
+{
+    "name": "magyarandras/amp-converter",
+    "description": "A library to convert HTML articles, blog posts or similar content to AMP (Accelerated Mobile Pages).",
+    "keywords": ["amp", "html", "amphtml", "amp-html", "converter"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "András Magyar",
+            "email": "magyarandrasistvan@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "magyarandras\\AMPConverter\\":"src/"
+        }
+    },
+    "require": {
+        "ext-dom": "*",
+        "marc1706/fast-image-size": "1.*"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^5.1"
+    }
+}

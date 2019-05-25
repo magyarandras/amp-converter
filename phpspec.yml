@@ -1,0 +1,4 @@
+suites:
+    default:
+        namespace: magyarandras\AMPConverter
+        psr4_prefix: magyarandras\AMPConverter

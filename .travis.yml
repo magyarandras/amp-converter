@@ -1,0 +1,16 @@
+language: php
+php:
+  - '5.4'
+  - '5.6'
+  - '7.0'
+  - '7.1'
+  - '7.2'
+  - '7.3'
+  - nightly
+
+before_script:
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+
+script:
+  - vendor/bin/phpspec run -v --format=progress
