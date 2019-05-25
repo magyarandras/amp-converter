@@ -125,7 +125,7 @@ class Converter {
 
         libxml_use_internal_errors(true);
 
-        $this->doc->loadHTML('<div>' . $html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $this->doc->loadHTML('<?xml encoding="utf-8" ?><div>' . $html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $this->doc->encoding = 'UTF-8';
 
         libxml_clear_errors();
@@ -143,6 +143,9 @@ class Converter {
         $this->removeProhibitedAttributes();
 
         $amphtml = $this->doc->saveHTML();
+
+        //Remove XML encoding declaration
+        $amphtml = str_replace('<?xml encoding="utf-8" ?>', '', $amphtml);
 
         //DOMDocument doesn't support HTML5, so we have to remove unnecessary closing tags.
         $amphtml = str_replace('</source>', '', $amphtml);
