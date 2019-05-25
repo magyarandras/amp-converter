@@ -1,5 +1,7 @@
 # AMP ⚡ converter library
 
+[![Build Status](https://travis-ci.com/magyarandras/amp-converter.svg?branch=master)](https://travis-ci.com/magyarandras/amp-converter)
+
 A library to convert HTML articles, blog posts or similar content to [AMP (Accelerated Mobile Pages)](https://amp.dev).
 
 **Note**: This library is not intended to convert entire HTML documents if you want to convert an entire page you should use a more advanced library, for example: [Lullabot/amp-library](https://github.com/Lullabot/amp-library/)
