@@ -21,7 +21,7 @@ A library to convert HTML articles, blog posts or similar content to [AMP (Accel
 * [x] amp-pinterest
 * [x] amp-playbuzz
 * [x] amp-gist(Github gist embed)
-* [ ] amp-vimeo(You can use amp-iframe instead)
+* [x] amp-vimeo(You can use amp-iframe instead)
 * [ ] amp-soundcloud(You can use amp-iframe instead)
 * [x] amp-vk
 * [x] amp-imgur

@@ -103,6 +103,7 @@ class Converter {
             new \magyarandras\AMPConverter\TagConverter\AMPYoutube,
             new \magyarandras\AMPConverter\TagConverter\AMPVideo,
             new \magyarandras\AMPConverter\TagConverter\AMPAudio,
+            new \magyarandras\AMPConverter\TagConverter\AMPVimeo,
             new \magyarandras\AMPConverter\TagConverter\AMPFacebook,
             new \magyarandras\AMPConverter\TagConverter\AMPPinterest,
             new \magyarandras\AMPConverter\TagConverter\AMPPlaybuzz,

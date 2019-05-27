@@ -19,6 +19,7 @@ use magyarandras\AMPConverter\TagConverter\AMPTwitter;
 use magyarandras\AMPConverter\TagConverter\AMPInstagram;
 use magyarandras\AMPConverter\TagConverter\AMPImgur;
 use magyarandras\AMPConverter\TagConverter\AMPVk;
+use magyarandras\AMPConverter\TagConverter\AMPVimeo;
 
 
 use PhpSpec\ObjectBehavior;
@@ -287,6 +288,17 @@ class ConverterSpec extends ObjectBehavior
 
         $this->getScripts()->shouldReturn([
             '<script async custom-element="amp-vk" src="https://cdn.ampproject.org/v0/amp-vk-0.1.js"></script>'
+        ]);
+    }
+
+    function it_converts_vimeo_embed_to_ampvimeo(){
+        $this->addConverter(new AMPVimeo());
+
+        $this->convert('<iframe src="https://player.vimeo.com/video/93199353?color=ff9933&title=0&byline=0&portrait=0&badge=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>')
+        ->shouldReturn('<amp-vimeo data-videoid="93199353" width="500" height="281" layout="responsive"></amp-vimeo>');
+
+        $this->getScripts()->shouldReturn([
+            '<script async custom-element="amp-vimeo" src="https://cdn.ampproject.org/v0/amp-vimeo-0.1.js"></script>'
         ]);
     }
 }
