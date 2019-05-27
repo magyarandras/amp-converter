@@ -17,7 +17,8 @@
     },
     "require": {
         "ext-dom": "*",
-        "marc1706/fast-image-size": "1.*"
+        "marc1706/fast-image-size": "1.*",
+        "masterminds/html5": "^2.6"
     },
     "require-dev": {
         "phpspec/phpspec": "^5.1"

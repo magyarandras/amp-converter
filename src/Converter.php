@@ -3,6 +3,8 @@ namespace magyarandras\AMPConverter;
 
 use magyarandras\AMPConverter\TagConverterInterface;
 
+use Masterminds\HTML5;
+
 class Converter {
 
     private $doc;
@@ -121,14 +123,10 @@ class Converter {
 
     public function convert($html){
 
-        $this->doc = new \DOMDocument();
-
-        libxml_use_internal_errors(true);
-
-        $this->doc->loadHTML('<?xml encoding="utf-8" ?><div>' . $html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $this->doc->encoding = 'UTF-8';
-
-        libxml_clear_errors();
+        $html5 = new HTML5([
+            'disable_html_ns' => true
+        ]);
+        $this->doc = $html5->loadHTML($html);
 
         $this->removeIncorrectDimensionAttributes();
 
@@ -142,18 +140,15 @@ class Converter {
         $this->removeProhibitedTags();
         $this->removeProhibitedAttributes();
 
-        $amphtml = $this->doc->saveHTML();
+        $amphtml = $html5->saveHTML($this->doc);
 
-        //Remove XML encoding declaration
-        $amphtml = str_replace('<?xml encoding="utf-8" ?>', '', $amphtml);
+        $to_replace = [
+            '<!DOCTYPE html>', '<html>', '</html>', '<head>', '</head>', '<body>', '</body>'
+        ];
 
-        //DOMDocument doesn't support HTML5, so we have to remove unnecessary closing tags.
-        $amphtml = str_replace('</source>', '', $amphtml);
-        $amphtml = str_replace('</track>', '', $amphtml);
+        $amphtml = str_replace($to_replace, '', $amphtml);
 
         $amphtml = trim($amphtml, "\n\r\0\x0B");
-
-        //$amphtml = html_entity_decode($amphtml);
         
 
         return $amphtml;
