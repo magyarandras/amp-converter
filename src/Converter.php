@@ -108,6 +108,8 @@ class Converter {
             new \magyarandras\AMPConverter\TagConverter\AMPPinterest,
             new \magyarandras\AMPConverter\TagConverter\AMPPlaybuzz,
             new \magyarandras\AMPConverter\TagConverter\AMPImgur,
+            new \magyarandras\AMPConverter\TagConverter\AMPDailymotion,
+            new \magyarandras\AMPConverter\TagConverter\AMPGfycat,
             new \magyarandras\AMPConverter\TagConverter\AMPGist,
             new \magyarandras\AMPConverter\TagConverter\AMPTwitter,
             new \magyarandras\AMPConverter\TagConverter\AMPInstagram,

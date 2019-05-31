@@ -25,6 +25,8 @@ A library to convert HTML articles, blog posts or similar content to [AMP (Accel
 * [ ] amp-soundcloud(You can use amp-iframe instead)
 * [x] amp-vk
 * [x] amp-imgur
+* [x] amp-dailymotion
+* [x] amp-gfycat
 
 ## Usage:
 
