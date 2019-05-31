@@ -20,6 +20,7 @@ use magyarandras\AMPConverter\TagConverter\AMPInstagram;
 use magyarandras\AMPConverter\TagConverter\AMPImgur;
 use magyarandras\AMPConverter\TagConverter\AMPVk;
 use magyarandras\AMPConverter\TagConverter\AMPVimeo;
+use magyarandras\AMPConverter\TagConverter\AMPDailymotion;
 
 
 use PhpSpec\ObjectBehavior;
@@ -299,6 +300,17 @@ class ConverterSpec extends ObjectBehavior
 
         $this->getScripts()->shouldReturn([
             '<script async custom-element="amp-vimeo" src="https://cdn.ampproject.org/v0/amp-vimeo-0.1.js"></script>'
+        ]);
+    }
+
+    function it_converts_dailymotion_embed_to_ampdailymotion(){
+        $this->addConverter(new AMPDailymotion());
+
+        $this->convert('<iframe frameborder="0" width="480" height="270" src="https://www.dailymotion.com/embed/video/x7008g9" allowfullscreen allow="autoplay"></iframe>')
+        ->shouldReturn('<amp-dailymotion data-videoid="x7008g9" width="480" height="270" layout="responsive"></amp-dailymotion>');
+
+        $this->getScripts()->shouldReturn([
+            '<script async custom-element="amp-dailymotion" src="https://cdn.ampproject.org/v0/amp-dailymotion-0.1.js"></script>'
         ]);
     }
 }
