@@ -21,6 +21,7 @@ use magyarandras\AMPConverter\TagConverter\AMPImgur;
 use magyarandras\AMPConverter\TagConverter\AMPVk;
 use magyarandras\AMPConverter\TagConverter\AMPVimeo;
 use magyarandras\AMPConverter\TagConverter\AMPDailymotion;
+use magyarandras\AMPConverter\TagConverter\AMPGfycat;
 
 
 use PhpSpec\ObjectBehavior;
@@ -311,6 +312,17 @@ class ConverterSpec extends ObjectBehavior
 
         $this->getScripts()->shouldReturn([
             '<script async custom-element="amp-dailymotion" src="https://cdn.ampproject.org/v0/amp-dailymotion-0.1.js"></script>'
+        ]);
+    }
+
+    function it_converts_gfycat_embed_to_ampgfycat(){
+        $this->addConverter(new AMPGfycat());
+
+        $this->convert('<div style=\'position:relative; padding-bottom:calc(56.42% + 44px)\'><iframe src=\'https://gfycat.com/ifr/NextRectangularHammerheadshark\' frameborder=\'0\' scrolling=\'no\' width=\'100%\' height=\'100%\' style=\'position:absolute;top:0;left:0;\' allowfullscreen></iframe></div><p><a href="https://gfycat.com/gifs/search/silicon+valley">from Silicon Valley GIFs</a> <a href="https://gfycat.com/nextrectangularhammerheadshark-silicon-valley">via Gfycat</a></p>')
+        ->shouldReturn('<div><amp-gfycat data-gfyid="NextRectangularHammerheadshark" width="640" height="360" layout="responsive"></amp-gfycat></div><p><a href="https://gfycat.com/gifs/search/silicon+valley">from Silicon Valley GIFs</a> <a href="https://gfycat.com/nextrectangularhammerheadshark-silicon-valley">via Gfycat</a></p>');
+
+        $this->getScripts()->shouldReturn([
+            '<script async custom-element="amp-gfycat" src="https://cdn.ampproject.org/v0/amp-gfycat-0.1.js"></script>'
         ]);
     }
 }
