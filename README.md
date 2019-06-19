@@ -6,7 +6,7 @@ A library to convert HTML articles, blog posts or similar content to [AMP (Accel
 
 **Note**: This library is not intended to convert entire HTML documents if you want to convert an entire page you should use a more advanced library, for example: [Lullabot/amp-library](https://github.com/Lullabot/amp-library/)
 
-##Installation:
+## Installation:
 
 ```
 composer require magyarandras/amp-converter
@@ -89,7 +89,7 @@ print_r($amphtml);
 print_r($amp_scripts);
 
 ```
-##Writing your own converters:
+## Writing your own converters:
 
 The library can't support everything out of the box, but you can extend it with your own converters(or you can replace existing ones if you need).
 
