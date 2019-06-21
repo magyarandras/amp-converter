@@ -40,6 +40,8 @@ Simple example:
 **Make sure your HTML code doesn't contain tags or attributes invalid in HTML5 otherwise, the generated AMP will be invalid too.**
 
 ```php
+<?php
+
 use magyarandras\AMPConverter\Converter;
 
 /*
@@ -68,6 +70,8 @@ print_r($amp_scripts);
 You can specify which converters to use by loading them manually:
 
 ```php
+<?php
+
 use magyarandras\AMPConverter\Converter;
 
 use magyarandras\AMPConverter\TagConverter\AMPImgZoom;
