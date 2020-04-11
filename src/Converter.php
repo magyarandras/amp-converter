@@ -5,8 +5,8 @@ use magyarandras\AMPConverter\TagConverterInterface;
 
 use Masterminds\HTML5;
 
-class Converter {
-
+class Converter
+{
     private $doc;
 
     private $prohibited_tags = [
@@ -92,12 +92,13 @@ class Converter {
 
     private $base_url;
 
-    public function __construct($base_url = ''){
+    public function __construct($base_url = '')
+    {
         $this->base_url = $base_url;
     }
 
-    public function loadDefaultConverters(){
-
+    public function loadDefaultConverters()
+    {
         $built_in_converters = [
             new \magyarandras\AMPConverter\TagConverter\AMPImg($this->base_url),
             new \magyarandras\AMPConverter\TagConverter\AMPYoutube,
@@ -119,13 +120,13 @@ class Converter {
         ];
 
         
-            foreach($built_in_converters as $converter){
-                $this->converters[] = $converter;
-            }
+        foreach ($built_in_converters as $converter) {
+            $this->converters[] = $converter;
+        }
     }
 
-    public function convert($html){
-
+    public function convert($html)
+    {
         $html5 = new HTML5([
             'disable_html_ns' => true
         ]);
@@ -133,7 +134,7 @@ class Converter {
 
         $this->removeIncorrectDimensionAttributes();
 
-        foreach($this->converters as $converter){
+        foreach ($this->converters as $converter) {
             $result = $converter->convert($this->doc);
             $this->doc = $result;
 
@@ -155,19 +156,18 @@ class Converter {
         
 
         return $amphtml;
-
-
     }
 
-    public function addConverter(TagConverterInterface $converter){
+    public function addConverter(TagConverterInterface $converter)
+    {
         //array_unshift($this->converters, $converter);
         $this->converters[] = $converter;
     }
 
 
     //Remove prohibited tags
-    private function removeProhibitedTags(){
-
+    private function removeProhibitedTags()
+    {
         $query = '//' . implode('|//', $this->prohibited_tags);
 
         $xpath = new \DOMXPath($this->doc);
@@ -179,56 +179,50 @@ class Converter {
                 $entry->parentNode->removeChild($entry);
             }
         }
-
     }
 
     //Remove width and height attributes if they provided in percent
-    private function removeIncorrectDimensionAttributes(){
+    private function removeIncorrectDimensionAttributes()
+    {
         $xpath = new \DOMXPath($this->doc);
 
         $entries = $xpath->query('//*[contains(@width, "%") or contains(@height, "%") or @width="auto" or @height="auto"]');
 
-        foreach($entries as $entry){
+        foreach ($entries as $entry) {
+            if ($entry->hasAttribute('width')) {
+                $entry->removeAttribute('width');
+            }
 
-                if($entry->hasAttribute('width')){
-                    $entry->removeAttribute('width');
-                }
-
-                if($entry->hasAttribute('height')){
-                    $entry->removeAttribute('height');
-                }
-                
+            if ($entry->hasAttribute('height')) {
+                $entry->removeAttribute('height');
+            }
         }
-
     }
 
     //Remove prohibited attributes
-    private function removeProhibitedAttributes(){
-
+    private function removeProhibitedAttributes()
+    {
         $xpath = new \DOMXPath($this->doc);
 
-        foreach($this->prohibited_attributes as $attribute=>$tags){
+        foreach ($this->prohibited_attributes as $attribute=>$tags) {
             $entries = $xpath->query('//' . $tags . '[@'.$attribute.']');
 
-            foreach($entries as $entry){
+            foreach ($entries as $entry) {
                 $entry->removeAttribute($attribute);
             }
-
         }
 
         //Remove anchors with href="javascript:*"
         $invalid_a_tags = $xpath->query('//a[starts-with(@href, "javascript:")]');
 
-        foreach($invalid_a_tags as $tag){
+        foreach ($invalid_a_tags as $tag) {
             $tag->parentNode->removeChild($tag);
         }
-
     }
 
 
-    public function getScripts(){
+    public function getScripts()
+    {
         return $this->scripts;
     }
-
-
 }

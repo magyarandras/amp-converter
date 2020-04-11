@@ -4,8 +4,8 @@ namespace magyarandras\AMPConverter\TagConverter;
 use magyarandras\AMPConverter\TagConverterInterface;
 use magyarandras\AMPConverter\Util\ImageSize;
 
-class AMPImgZoom implements TagConverterInterface{
-
+class AMPImgZoom implements TagConverterInterface
+{
     private $necessary_scripts = [];
 
     private $extension_script = '<script async custom-element="amp-pan-zoom" src="https://cdn.ampproject.org/v0/amp-pan-zoom-0.1.js"></script>';
@@ -13,13 +13,13 @@ class AMPImgZoom implements TagConverterInterface{
     //Base URL of the images
     private $base_url;
 
-    public function __construct($base_url = ''){
+    public function __construct($base_url = '')
+    {
         $this->base_url = $base_url;
     }
     
-    public function convert(\DOMDocument $doc){
-
-
+    public function convert(\DOMDocument $doc)
+    {
         $query = '//img';
 
         $xpath = new \DOMXPath($doc);
@@ -29,29 +29,23 @@ class AMPImgZoom implements TagConverterInterface{
         $allowed_attributes = ['src', 'alt', 'srcset', 'sizes'];
         
         foreach ($entries as $tag) {
-
-            if($tag->hasAttribute('src')){
-
-                if(!$tag->hasAttribute('width') || !$tag->hasAttribute('height')){
-
+            if ($tag->hasAttribute('src')) {
+                if (!$tag->hasAttribute('width') || !$tag->hasAttribute('height')) {
                     $imageSize = ImageSize::getImageSize($this->base_url, $tag->getAttribute('src'));
                     
-                    if($imageSize){
+                    if ($imageSize) {
                         $width = $imageSize['width'];
                         $height = $imageSize['height'];
-                    }
-                    else{
+                    } else {
                         $tag->parentNode->removeChild($tag);
                         continue;
                     }
-                    
-                }
-                else{
+                } else {
                     $width = $tag->getAttribute('width');
                     $height = $tag->getAttribute('height');
                 }
 
-                if(!$this->necessary_scripts){
+                if (!$this->necessary_scripts) {
                     $this->necessary_scripts[] = $this->extension_script;
                 }
 
@@ -59,8 +53,8 @@ class AMPImgZoom implements TagConverterInterface{
 
                 $panzoom = $doc->createElement('amp-pan-zoom');
 
-                foreach($allowed_attributes as $attribute){
-                    if($tag->hasAttribute($attribute)){
+                foreach ($allowed_attributes as $attribute) {
+                    if ($tag->hasAttribute($attribute)) {
                         $img->setAttribute($attribute, $tag->getAttribute($attribute));
                     }
                 }
@@ -74,20 +68,16 @@ class AMPImgZoom implements TagConverterInterface{
                 $panzoom->appendChild($img);
 
                 $tag->parentNode->replaceChild($panzoom, $tag);
-
-            }
-            else{
+            } else {
                 $tag->parentNode->removeChild($tag);
             }
-
         }
 
         return $doc;
-
     }
 
-    public function getNecessaryScripts(){
+    public function getNecessaryScripts()
+    {
         return $this->necessary_scripts;
     }
-
 }

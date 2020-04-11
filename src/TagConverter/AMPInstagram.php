@@ -4,13 +4,14 @@ namespace magyarandras\AMPConverter\TagConverter;
 
 use magyarandras\AMPConverter\TagConverterInterface;
 
-class AMPInstagram implements TagConverterInterface{
-
+class AMPInstagram implements TagConverterInterface
+{
     private $necessary_scripts = [];
 
     private $extension_script = '<script async custom-element="amp-instagram" src="https://cdn.ampproject.org/v0/amp-instagram-0.1.js"></script>';
 
-    public function convert(\DOMDocument $doc){
+    public function convert(\DOMDocument $doc)
+    {
 
         // /instagram.com\/p\/([0-9a-zA-Z]+)/i
         $query = '//blockquote[@class="instagram-media" and php:functionString(\'preg_match\', \'/instagram.com\/p\/([0-9a-zA-Z]+)/i\', @data-instgrm-permalink) > 0]';
@@ -22,11 +23,11 @@ class AMPInstagram implements TagConverterInterface{
 
         $entries = $xpath->query($query);
 
-        if($entries->length > 0){
+        if ($entries->length > 0) {
             $this->necessary_scripts[] = $this->extension_script;
         }
 
-        foreach($entries as $tag){
+        foreach ($entries as $tag) {
             preg_match('/instagram.com\/p\/([0-9a-zA-Z]+)/i', $tag->getAttribute('data-instgrm-permalink'), $id_match);
             $post_id = $id_match[1];
 
@@ -39,18 +40,13 @@ class AMPInstagram implements TagConverterInterface{
             $ampinstagram->setAttribute('layout', 'responsive');
 
             $tag->parentNode->replaceChild($ampinstagram, $tag);
-
-            
         }
 
         return $doc;
-
     }
 
-    public function getNecessaryScripts(){
+    public function getNecessaryScripts()
+    {
         return $this->necessary_scripts;
     }
-
-    
-
 }

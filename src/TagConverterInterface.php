@@ -2,10 +2,9 @@
 
 namespace magyarandras\AMPConverter;
 
-interface TagConverterInterface{
-
+interface TagConverterInterface
+{
     public function convert(\DOMDocument $doc);
 
     public function getNecessaryScripts();
-
 }
