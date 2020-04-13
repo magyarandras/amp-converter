@@ -18,7 +18,7 @@ composer require magyarandras/amp-converter
 * [x] amp-img with lightbox
 * [x] amp-video
 * [x] amp-audio
-* [x] amp-iframe
+* [x] amp-iframe(A placeholder is automatically added to the iframes, so you can [embed iframes even above the fold](https://www.youtube.com/watch?v=TqfYmlkHVCs).)
 * [x] amp-youtube
 * [x] amp-facebook
 * [x] amp-instagram
@@ -26,7 +26,7 @@ composer require magyarandras/amp-converter
 * [x] amp-pinterest
 * [x] amp-playbuzz
 * [x] amp-gist(Github gist embed)
-* [x] amp-vimeo(You can use amp-iframe instead)
+* [x] amp-vimeo
 * [ ] amp-soundcloud(You can use amp-iframe instead)
 * [x] amp-vk
 * [x] amp-imgur
@@ -129,7 +129,8 @@ class CountdownConverter implements \magyarandras\AMPConverter\TagConverterInter
     '<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>'
     ];
 
-    public function convert(\DOMDocument $doc){
+    public function convert(\DOMDocument $doc)
+    {
 
         $query = '//div[@data-countdown]';
 
@@ -137,7 +138,7 @@ class CountdownConverter implements \magyarandras\AMPConverter\TagConverterInter
 
         $entries = $xpath->query($query);
 
-        if($entries->length > 0){
+        if ($entries->length > 0) {
             $this->necessary_scripts = $this->extension_scripts;
         }
 
@@ -173,7 +174,8 @@ class CountdownConverter implements \magyarandras\AMPConverter\TagConverterInter
         return $doc;
     }
 
-    public function getNecessaryScripts(){
+    public function getNecessaryScripts() 
+    {
         return $this->necessary_scripts;
     }
 
