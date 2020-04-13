@@ -98,7 +98,7 @@ class ConverterSpec extends ObjectBehavior
         $this->addConverter(new AMPIframe());
 
         $this->convert('<iframe src="https://player.vimeo.com/video/93199353?color=ff9933&title=0&byline=0&portrait=0&badge=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>')
-        ->shouldReturn('<amp-iframe src="https://player.vimeo.com/video/93199353?color=ff9933&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0" sandbox="allow-scripts allow-same-origin allow-popups" width="640" height="360" allowfullscreen layout="responsive"></amp-iframe>');
+        ->shouldReturn('<amp-iframe src="https://player.vimeo.com/video/93199353?color=ff9933&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0" sandbox="allow-scripts allow-same-origin allow-popups" width="640" height="360" allowfullscreen layout="responsive"><p placeholder>Loading...</p></amp-iframe>');
 
         $this->getScripts()->shouldReturn([
             '<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>'

@@ -51,6 +51,13 @@ class AMPIframe implements TagConverterInterface
 
             $ampiframe->setAttribute('layout', 'responsive');
 
+            //Add a placeholder to the amp-iframe element so it can be embedded even above the fold.
+            $placeholder = $doc->createElement('p');
+            $placeholder->setAttribute('placeholder', '');
+            $placeholder_text = $doc->createTextNode('Loading...');
+            $placeholder->appendChild($placeholder_text);
+            $ampiframe->appendChild($placeholder);
+
             $tag->parentNode->replaceChild($ampiframe, $tag);
         }
 
