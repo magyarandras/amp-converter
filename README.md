@@ -1,6 +1,6 @@
 # AMP ⚡ converter library
 
-[![Build Status](https://travis-ci.com/magyarandras/amp-converter.svg?branch=master)](https://travis-ci.com/magyarandras/amp-converter)
+[![Build Status](https://github.com/magyarandras/amp-converter/workflows/test/badge.svg)](https://github.com/magyarandras/amp-converter/actions)
 
 A library to convert HTML articles, blog posts or similar content to [AMP (Accelerated Mobile Pages)](https://amp.dev).
 
