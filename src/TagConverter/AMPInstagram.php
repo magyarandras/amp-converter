@@ -13,8 +13,8 @@ class AMPInstagram implements TagConverterInterface
     public function convert(\DOMDocument $doc)
     {
 
-        // /instagram.com\/p\/([0-9a-zA-Z_\-]+)/i
-        $query = '//blockquote[@class="instagram-media" and php:functionString(\'preg_match\', \'/instagram.com\/p\/([0-9a-zA-Z_\-]+)/i\', @data-instgrm-permalink) > 0]';
+        // /instagram.com\/(p|tv)\/([0-9a-zA-Z_\-]+)/i
+        $query = '//blockquote[@class="instagram-media" and php:functionString(\'preg_match\', \'/instagram.com\/(p|tv)\/([0-9a-zA-Z_\-]+)/i\', @data-instgrm-permalink) > 0]';
 
         $xpath = new \DOMXPath($doc);
 
@@ -28,8 +28,8 @@ class AMPInstagram implements TagConverterInterface
         }
 
         foreach ($entries as $tag) {
-            preg_match('/instagram.com\/p\/([0-9a-zA-Z_\-]+)/i', $tag->getAttribute('data-instgrm-permalink'), $id_match);
-            $post_id = $id_match[1];
+            preg_match('/instagram.com\/(p|tv)\/([0-9a-zA-Z_\-]+)/i', $tag->getAttribute('data-instgrm-permalink'), $id_match);
+            $post_id = $id_match[2];
 
             $ampinstagram = $doc->createElement('amp-instagram');
 
