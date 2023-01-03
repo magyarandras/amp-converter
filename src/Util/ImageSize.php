@@ -5,7 +5,7 @@ class ImageSize
 {
     public static function getImageSize($base_url, $url)
     {
-        $FastImageSize = new \FastImageSize\FastImageSize();
+        $FasterImageSize = new \FasterImage\FasterImage();
 
         if (preg_match('/https?:\/\//i', $url)) {
             $img_url = $url;
@@ -21,7 +21,7 @@ class ImageSize
             $img_url = $base_url . '/' . $url;
         }
 
-        $imageSize = $FastImageSize->getImageSize($img_url);
+        $imageSize = $FasterImageSize->getImageSize($img_url);
              
         return $imageSize;
     }
