@@ -17,7 +17,7 @@
     },
     "require": {
         "ext-dom": "*",
-        "marc1706/fast-image-size": "1.*",
+        "fasterimage/fasterimage": "~1.5",
         "masterminds/html5": "^2.6"
     },
     "require-dev": {
