@@ -20,7 +20,6 @@ class AMPImg implements TagConverterInterface
 
     public function convert(\DOMDocument $doc)
     {
-        $FastImageSize = new \FastImageSize\FastImageSize();
 
         $query = '//img';
 
