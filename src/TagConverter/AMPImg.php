@@ -13,9 +13,13 @@ class AMPImg implements TagConverterInterface
     //Base URL of the images
     private $base_url;
 
-    public function __construct($base_url = '')
+    //Time limit for acquiring image dimensions in seconds
+    private $timeout;
+
+    public function __construct($base_url = '', $timeout = 10)
     {
         $this->base_url = $base_url;
+        $this->timeout = $timeout;
     }
 
     public function convert(\DOMDocument $doc)
@@ -34,7 +38,11 @@ class AMPImg implements TagConverterInterface
                 $img = $doc->createElement('amp-img');
 
                 if (!$tag->hasAttribute('width') || !$tag->hasAttribute('height')) {
-                    $imageSize = ImageSize::getImageSize($this->base_url, $tag->getAttribute('src'));
+                    $imageSize = ImageSize::getImageSize(
+                        $this->base_url,
+                        $tag->getAttribute('src'),
+                        $this->timeout
+                    );
                     
                     if ($imageSize) {
                         $img->setAttribute('width', $imageSize['width']);

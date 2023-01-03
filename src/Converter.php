@@ -90,17 +90,31 @@ class Converter
 
     ];
 
-    private $base_url;
+    private $base_url = '';
 
-    public function __construct($base_url = '')
+    private $image_timeout = 10;
+
+    public function __construct($arg = '')
     {
-        $this->base_url = $base_url;
+        if (is_array($arg)) {
+
+            if (array_key_exists('image_base_url', $arg)) {
+                $this->base_url = $arg['image_base_url'];
+            }
+
+            if (array_key_exists('image_timeout', $arg)) {
+                $this->image_timeout = $arg['image_timeout'];
+            }
+
+        } else {
+            $this->base_url = $arg;
+        }
     }
 
     public function loadDefaultConverters()
     {
         $built_in_converters = [
-            new \magyarandras\AMPConverter\TagConverter\AMPImg($this->base_url),
+            new \magyarandras\AMPConverter\TagConverter\AMPImg($this->base_url, $this->image_timeout),
             new \magyarandras\AMPConverter\TagConverter\AMPYoutube,
             new \magyarandras\AMPConverter\TagConverter\AMPVideo,
             new \magyarandras\AMPConverter\TagConverter\AMPAudio,
